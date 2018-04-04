@@ -42,6 +42,9 @@ import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from "@ang
             </fieldset>
         </div>
         <button type="button" (click)="addAddressGroup()">Add Address</button>
+        <div>
+            <button type="button" (click)="saveProfileForm()">Save</button>
+        </div>
     </form>
     `,
 })
@@ -67,6 +70,10 @@ export class AppComponent {
         const fa = this.profileForm.controls["addressGroups"] as FormArray;
 
         fa.push(this.newAddressGroup());
+    }
+
+    public saveProfileForm() {
+        console.log(this.profileForm.value);
     }
 
     private newAddressGroup() {
