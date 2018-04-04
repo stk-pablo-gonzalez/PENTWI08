@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
+import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from "@angular/forms";
 
 @Component({
     selector: "main",
@@ -46,13 +46,22 @@ import { FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
     `,
 })
 export class AppComponent {
-    public profileForm: FormGroup = new FormGroup({
-        firstNameInput: new FormControl("", Validators.required),
-        lastNameInput: new FormControl(""),
-        addressGroups: new FormArray([
-            this.newAddressGroup()
-        ])
-    });
+    public profileForm: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) {
+        this.profileForm = this.formBuilder.group({
+            firstNameInput: [""],
+            lastNameInput: [""],
+            addressGroups: this.formBuilder.array([
+                this.formBuilder.group({
+                    streetInput: [""],
+                    cityInput: [""],
+                    stateInput: [""],
+                    zipCodeInput: [""],
+                })
+            ])
+        });
+    }
 
     public addAddressGroup() {
         const fa = this.profileForm.controls["addressGroups"] as FormArray;
