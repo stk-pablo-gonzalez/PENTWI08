@@ -1,21 +1,45 @@
 import { Component } from "@angular/core";
 
+interface ContactData {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
+}
+
 @Component({
     selector: "main",
     template: `
-        <div>Old Message: {{message}}</div>
-        <div>New Message: {{newMessage}}</div>
+    <form>
         <div>
-            <label for="message-input">Message:</label>
-            <input type="text" id="message-input" name="messageInput" [(ngModel)]="message">
-            <br/>
-            <label for="message2-input">Message:</label>
-            <input type="text" id="message2-input" name="message2Input" [ngModel]="message" (ngModelChange)="newMessage = $event">
+            <label for="first-name-input">First Name:</label>
+            <input type="text" id="first-name-input" name="firstNameInput" [(ngModel)]="contact.firstName">
         </div>
+        <div>
+            <label for="last-name-input">Last Name:</label>
+            <input type="text" id="last-name-input" name="lastNameInput" [(ngModel)]="contact.lastName">
+        </div>
+        <fieldset ngModelGroup="methodsOfContact">
+            <legend>Methods of Contact</legend>
+            <div>
+                <label for="phone-input">Phone:</label>
+                <input type="text" id="phone-input" name="phoneInput" [(ngModel)]="contact.phone">
+            </div>
+            <div>
+                <label for="email-input">Email:</label>
+                <input type="text" id="email-input" name="emailInput" [(ngModel)]="contact.email">
+            </div>
+        </fieldset>
+    </form>
     `,
 })
 export class AppComponent {
 
-    public message: string = "Hello World!";
+    public contact: ContactData = {
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: ""   
+    };
 
 }
