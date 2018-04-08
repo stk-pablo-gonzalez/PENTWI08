@@ -5,6 +5,8 @@ interface ContactData {
     lastName: string;
     phone: string;
     email: string;
+    state: string;
+    comments: string;
 }
 
 @Component({
@@ -19,6 +21,13 @@ interface ContactData {
             <label for="last-name-input">Last Name:</label>
             <input type="text" id="last-name-input" name="lastNameInput" [(ngModel)]="contact.lastName">
         </div>
+        <div>
+            <label for="state-select">State:</label>
+            <select id="state-select" name="stateSelect" [(ngModel)]="contact.state">
+                <option value="">Select One...</option>
+                <option *ngFor="let state of states" [value]="state[0]">{{state[1]}}</option>
+            </select>
+        </div>
         <fieldset ngModelGroup="methodsOfContact">
             <legend>Methods of Contact</legend>
             <div>
@@ -30,6 +39,10 @@ interface ContactData {
                 <input type="text" id="email-input" name="emailInput" [(ngModel)]="contact.email">
             </div>
         </fieldset>
+        <div>
+            <label for="comments-textarea">Comments:</label>
+            <textarea id="comments-textarea" name="commentsTextarea" [(ngModel)]="contact.comments"></textarea>
+        </div>
     </form>
     `,
 })
@@ -39,7 +52,17 @@ export class AppComponent {
         firstName: "",
         lastName: "",
         phone: "",
-        email: ""   
+        email: "",
+        state: "" ,
+        comments: ""  
     };
+
+    public states = [
+        ["VA", "Virginia"],
+        ["CA", "California"],
+        ["TX", "Texas"],
+        ["FL", "Florida"],
+        ["MD", "Maryland"],
+    ]
 
 }
