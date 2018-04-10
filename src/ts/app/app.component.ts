@@ -12,7 +12,7 @@ interface ContactData {
 @Component({
     selector: "main",
     template: `
-    <form>
+    <form (ngSubmit)="submitForm()">
         <div>
             <label for="first-name-input">First Name:</label>
             <input type="text" id="first-name-input" name="firstNameInput" [(ngModel)]="contact.firstName">
@@ -43,6 +43,10 @@ interface ContactData {
             <label for="comments-textarea">Comments:</label>
             <textarea id="comments-textarea" name="commentsTextarea" [(ngModel)]="contact.comments"></textarea>
         </div>
+        <button type="submit">Send</button>
+        <button type="reset">Reset</button>
+        <button type="button" (click)="doSomethingElse()">Do Something Else!</button>
+        
     </form>
     `,
 })
@@ -65,4 +69,21 @@ export class AppComponent {
         ["MD", "Maryland"],
     ]
 
+    public submitForm() {
+        console.log(this.contact);
+    }
+
+    public doSomethingElse() {
+        console.log("test");
+        console.log(this.contact);
+
+        this.contact = {
+            firstName: "Pablo",
+            lastName: "Gonzalez",
+            phone: "449 111 9630",
+            email: "test@test.org",
+            state: "CA",
+            comments: "this is a comment"
+        };
+    }
 }
