@@ -8,16 +8,19 @@ import { Component } from "@angular/core";
         "input.ng-invalid.ng-touched + span { display: inline; }",
     ],
     template: `
-        <form novalidate>
-            <fieldset ngModelGroup="someGroup">
-                <input type="text" id="message-input" name="messageInput" [(ngModel)]="message" required>
+        <form #f="ngForm">
+            <span *ngIf="f.valid">The Form is valid</span>
+            <fieldset #g="ngModelGroup" ngModelGroup="someGroup">
+                <span *ngIf="g.valid">The model group is valid</span>
+                <input #c="ngModel" type="text" id="message-input" name="messageInput" [(ngModel)]="message" required>
                 <span>Message is required.</span>
+                <span *ngIf="c.valid">Message is valid.</span>
             </fieldset>
         </form>
     `,
 })
 export class AppComponent {
 
-    public message: string = "Hello World!";
+    public message: string = "";
 
 }
