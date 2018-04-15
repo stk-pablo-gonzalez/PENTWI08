@@ -18,6 +18,6 @@ export class AppComponent {
     public message: string = "";
 
     public formGroup: FormGroup = new FormGroup({
-        messageControl: new FormControl("", Validators.required)
+        messageControl: new FormControl("", Validators.required),
     });
 }
