@@ -12,7 +12,9 @@ import { Component } from "@angular/core";
             <fieldset ngModelGroup="someGroup">
                 <div>
                     <label for="make-required">Make Required:</label>
-                    <input type="checkbox" id="make-required" [(ngModel)]="makeRequired" name="makeRequiredInput">
+                    <input type="checkbox" id="make-required" [(ngModel)]="makeRequired" name="makeRequiredInput"
+                        required>
+                    <span>Make required is required.</span>
                 </div>
                 <div>
                     <label for="message-input">Message:</label>
