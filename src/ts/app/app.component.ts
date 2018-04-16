@@ -11,16 +11,10 @@ import { Component } from "@angular/core";
         <form>
             <fieldset ngModelGroup="someGroup">
                 <div>
-                    <label for="make-required">Make Required:</label>
-                    <input type="checkbox" id="make-required" [(ngModel)]="makeRequired" name="makeRequiredInput"
-                        required>
-                    <span>Make required is required.</span>
-                </div>
-                <div>
                     <label for="message-input">Message:</label>
                     <input type="text" id="message-input" name="messageInput" [(ngModel)]="message"
-                        [required]="makeRequired">
-                    <span>Message is required.</span>
+                        minlength="5" maxlength="10" required>
+                    <span>Message has to be at least 5 chars long.</span>
                 </div>
             </fieldset>
         </form>
