@@ -1,49 +1,47 @@
-import { Component, ViewChild, ViewChildren, AfterViewInit, QueryList } from "@angular/core";
-import { NgForm, NgModel, NgModelGroup } from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: "main",
     template: `
-        <form id="contact-form" novalidate>
+        <form [formGroup]="contactForm" novalidate>
             <div>Submitted: {{contactForm.submitted}}</div>
-            <fieldset #addressGroup="ngModelGroup" ngModelGroup="address">
+            <fieldset formGroupName="addressGroup">
                 <div>Address Group valid: {{addressGroup.valid}}</div>
                 <div>
                     <label for="street-input">Street:</label>
-                    <input id="street-input" type="text" #streetInput="ngModel" [(ngModel)]="street" 
-                        name="streetInput" required>
-                    <span *ngIf="streetInput.invalid && streetInput.touched">
+                    <input id="street-input" type="text" name="streetInput" formControlName="streetInput">
+                    <span *ngIf="addressGroup.controls.streetInput.invalid
+                        && addressGroup.controls.streetInput.touched">
                         Street is required.
                     </span>
                     {{street}}
                 </div>
                 <div>
                     <label for="city-input">City:</label>
-                    <input type="text" #cityInput="ngModel" [(ngModel)]="city" name="cityInput" required>
-                    <span *ngIf="cityInput.invalid && cityInput.touched">
+                    <input id="city-input" type="text" name="cityInput" formControlName="cityInput">
+                    <span *ngIf="addressGroup.controls.cityInput.invalid
+                        && addressGroup.controls.cityInput.touched">
                         City is required.
                     </span>
-                    {{street}}
+                    {{city}}
                 </div>
             </fieldset>
             <button type="submit">Submit</button>
         </form>
     `,
 })
-export class AppComponent implements AfterViewInit {
-    public street: string = "";
-    public city: string = "";
+export class AppComponent implements OnInit {
+    public addressGroup = new FormGroup({
+        streetInput: new FormControl("", [Validators.required]),
+        cityInput: new FormControl("", [Validators.required]),
+    });
 
-    @ViewChild(NgForm)
-    public contactForm: NgForm;
+    public contactForm = new FormGroup({
+        addressGroup: this.addressGroup,
+    });
 
-    @ViewChildren(NgModel)
-    public contactControls: QueryList<NgModel>;
-
-    public ngAfterViewInit(): void {
+    public ngOnInit(): void {
         console.log(this.contactForm);
-        console.log(this.contactControls);
-
-        console.log(this.contactControls["streetInput"]);
     }
 }
