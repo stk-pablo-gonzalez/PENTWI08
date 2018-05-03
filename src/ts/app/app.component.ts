@@ -42,7 +42,7 @@ import { ERROR_COLLECTOR_TOKEN } from "@angular/compiler";
                     </div>
                 </section>
             </fieldset>
-            <button type="submit">Submit</button>
+            <button type="submit" *ngIf="!addressGroup.invalid && addressGroup.touched">Submit</button>
         </form>
     `,
 })
